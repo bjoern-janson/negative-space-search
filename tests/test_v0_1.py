@@ -9,11 +9,12 @@ from negative_space_search.baselines import (
     GeneralCausalReasoner,
     SelfConfirmingOpportunitySearch,
 )
-from negative_space_search.evaluation import score_hostile_pair
+from negative_space_search.evaluation import score_hostile_pair, score_model_adequacy_pair
 from negative_space_search.simulator import (
     acquire_evidence,
     canonical_cases,
     hostile_equivalence_pair,
+    model_adequacy_pair,
 )
 
 
@@ -47,6 +48,29 @@ class V01EnvironmentTests(unittest.TestCase):
         self.assertLess(observed_s.external_performance or 0.0, 0.0)
 
 
+class V011ModelAdequacyEnvironmentTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.within_model, self.model_inadequate = model_adequacy_pair()
+
+    def test_model_adequacy_pair_is_initially_observationally_equivalent(self) -> None:
+        self.assertEqual(self.within_model.observation, self.model_inadequate.observation)
+        self.assertNotEqual(self.within_model.latent_causes, self.model_inadequate.latent_causes)
+        self.assertEqual(self.within_model.available_evidence, self.model_inadequate.available_evidence)
+
+    def test_more_ordinary_data_does_not_discriminate_model_adequacy(self) -> None:
+        first = acquire_evidence(self.within_model, "ordinary_discriminator").observation
+        second = acquire_evidence(self.model_inadequate, "ordinary_discriminator").observation
+        self.assertEqual(first, second)
+
+    def test_model_disrupting_probe_discriminates_regime(self) -> None:
+        first = acquire_evidence(self.within_model, "model_disrupting_probe").observation
+        second = acquire_evidence(self.model_inadequate, "model_disrupting_probe").observation
+        self.assertTrue(first.metadata.get("model_adequacy_confirmed"))
+        self.assertFalse(first.metadata.get("current_causal_vocabulary_residual", False))
+        self.assertTrue(second.metadata.get("current_causal_vocabulary_residual"))
+        self.assertNotEqual(first, second)
+
+
 class V01PolicyTests(unittest.TestCase):
     def setUp(self) -> None:
         self.underinvestment, self.selection = hostile_equivalence_pair()
@@ -77,6 +101,26 @@ class V01PolicyTests(unittest.TestCase):
         selection_case = canonical_cases()[2]
         decision = CausalNegativeSpaceSearch().decide(selection_case.observation)
         self.assertIs(decision.action, Action.PRESERVE)
+
+
+class V011ModelAdequacyPolicyTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.within_model, self.model_inadequate = model_adequacy_pair()
+
+    def test_negative_space_search_requests_model_adequacy_probe(self) -> None:
+        score = score_model_adequacy_pair(
+            CausalNegativeSpaceSearch(), self.within_model, self.model_inadequate
+        )
+        self.assertTrue(score.passed)
+
+    def test_general_causal_reasoner_uses_more_within_model_data(self) -> None:
+        score = score_model_adequacy_pair(
+            GeneralCausalReasoner(), self.within_model, self.model_inadequate
+        )
+        self.assertFalse(score.model_adequacy_probe_requested)
+        self.assertTrue(score.within_model_after_probe_correct)
+        self.assertTrue(score.model_inadequacy_after_probe_correct)
+        self.assertFalse(score.passed)
 
 
 if __name__ == "__main__":

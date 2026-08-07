@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "negative-space-search"
-version = "0.1.0"
-description = "Benchmarking causal negative-space search in adaptive epistemic systems"
+version = "0.7.0"
+description = "Search-governance benchmarks for evidence-conditioned representational expansion"
 requires-python = ">=3.11"
 
 [tool.setuptools.packages.find]

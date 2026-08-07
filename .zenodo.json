@@ -1,0 +1,31 @@
+{
+  "title": "Negative-Space Search v0.7: Search Governance, Not Discovery",
+  "upload_type": "software",
+  "description": "An experimental benchmark program investigating whether systems can detect when their current representational structures are inadequate and selectively allocate expansion effort. The v0.7 release evaluates boundary-gated representational repair against always-expand synthesis baselines. The supported contribution is search governance and adaptive representational economy, not superior invention or autonomous discovery.",
+  "creators": [
+    {
+      "name": "Janson, Björn"
+    }
+  ],
+  "version": "0.7",
+  "publication_date": "2026-08-07",
+  "access_right": "open",
+  "license": "MIT",
+  "keywords": [
+    "artificial intelligence",
+    "adaptive systems",
+    "representation learning",
+    "epistemology",
+    "causal reasoning",
+    "model uncertainty",
+    "search governance",
+    "corrigibility"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/bjoern-janson/negative-space-search",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    }
+  ]
+}

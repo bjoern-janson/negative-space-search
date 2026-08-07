@@ -24,3 +24,5 @@ jobs:
         run: python -m negative_space_search.run_v0_1_1
       - name: Execute v0.2 false-escalation benchmark
         run: python -m negative_space_search.run_v0_2
+      - name: Execute v0.3 representation-transfer benchmark
+        run: python -m negative_space_search.run_v0_3

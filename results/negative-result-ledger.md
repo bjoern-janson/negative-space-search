@@ -23,7 +23,9 @@ It abstained without correctly identifying causal-vocabulary inadequacy or reque
 
 **v0.2 update:** run `31173078806` showed that a history-aware policy can distinguish systematic residual structure from noise-compatible uncertainty on the frozen v0.2 surface split. This still does not close NR-001: the capability was implemented through an explicit standardized-residual rule rather than discovered from the original unresolved observation.
 
-**Next discriminator:** test whether the search process can learn when model-adequacy checks are warranted from attributed prior failures, including a held-out failure structure not represented by residual persistence.
+**v0.3 update:** run `31173841990` showed that a typed representation can route an explicitly unclassified held-out residual to a model-disrupting probe. This remains a representation-ablation result, not closure of the original localization failure; the relevant distinction was explicitly preserved in history rather than inferred from the original case.
+
+**Next discriminator:** test whether the system can learn which distinctions deserve preservation and when model-adequacy checks are warranted when those fields are noisy, partial, or not pre-typed.
 
 **Status:** open.
 
@@ -50,9 +52,11 @@ Both avoided guessing and requested `controlled_external_value_test` for the ide
 
 **v0.2 update:** run `31173078806` removed that narrow advantage once the strong causal baseline received the same history-sensitive escalation competence. `history_aware_general_causal_reasoner` and `history_aware_negative_space_search` were identical on true escalation, false escalation, overall and held-out evidence selection, post-evidence interpretation, and evidence cost.
 
-**Claim constraint:** the current evidence supports history-sensitive selective escalation as a useful search-control capability. It does not support a distinct performance advantage for explicit negative-space framing over a matched strong causal reasoner.
+**v0.3 update:** run `31173841990` again found identity once representation was matched: `typed_general_causal_history` and `structured_negative_space_history` produced identical decisions and metrics. The difference was between typed and compressed history, not between negative-space and general causal labels.
 
-**Next discriminator:** compare learnability and transfer of search-control updates, not hand-coded framing, on a novel failure structure.
+**Claim constraint:** the current evidence supports history-sensitive, representation-sensitive search control. It does not support a distinct performance advantage for explicit negative-space framing over a matched strong causal reasoner preserving the same distinctions.
+
+**Next discriminator:** compare learned representation selection under matched raw histories and costs rather than hand-specified typed fields.
 
 **Status:** open.
 
@@ -79,9 +83,50 @@ The frozen v0.1.1 controls failed in opposite directions: the negative-space pol
 
 **What this does not identify:** any incremental value attributable specifically to negative-space framing. The matched history-aware general causal reasoner achieved the same result using the same observable history, residual summary, threshold, evidence affordances, and costs.
 
-**Claim constraint:** do not cite v0.2 as evidence that `Psi_NS` outperforms strong adaptive causal search.
+**v0.3 update:** the next representation-transfer test did not rescue a unique negative-space mechanism. Typed general causal and typed negative-space histories again tied exactly.
 
-**Next discriminator:** allow both search processes to update from prior diagnostic outcomes and evaluate transfer to a held-out failure structure that is not reducible to the v0.2 standardized-residual signature.
+**Claim constraint:** do not cite v0.2 or v0.3 as evidence that `Psi_NS` outperforms strong adaptive causal search when relevant history structure is matched.
+
+**Next discriminator:** test whether the negative-space framing helps discover or select useful representations under noise and representation cost, rather than receiving them by construction.
+
+**Status:** open.
+
+---
+
+## NR-004 — v0.3 representation gain is not uniquely negative-space
+
+**Run:** GitHub Actions `31173841990`
+
+**Observed:** the representation ablation produced:
+
+```text
+generic_compressed_causal_history:
+  held_out_evidence_selection_rate = 0.0
+  known_topology_transfer_rate = 0.0
+  novel_topology_model_check_rate = 0.0
+
+typed_general_causal_history:
+  held_out_evidence_selection_rate = 1.0
+  known_topology_transfer_rate = 1.0
+  novel_topology_model_check_rate = 1.0
+
+structured_negative_space_history:
+  held_out_evidence_selection_rate = 1.0
+  known_topology_transfer_rate = 1.0
+  novel_topology_model_check_rate = 1.0
+```
+
+The two typed systems shared the same representation and decision rule and differed only in name. Their outputs were identical on every held-out case.
+
+**What this identifies:** preserving typed relations can matter substantially when superficial prediction/outcome/error statistics are misleading and the benchmark requires structural transfer.
+
+**What this does not identify:** a unique negative-space algorithm or framing advantage. A generic causal learner with the same typed representation received the full benefit.
+
+**Claim constraint:** attribute the current v0.3 gain to representation quality, not to negative-space identity.
+
+**Additional limitation:** the case matrix was deliberately constructed so compressed surface similarity pointed to the wrong training topology. This is a valid representation ablation but not evidence that compressed causal histories generally fail in natural settings.
+
+**Next discriminator:** force the representation itself to be learned or selected under cost, noise, partial observability, and distractor fields. Include cases where the current typed representation is actively misleading.
 
 **Status:** open.
 

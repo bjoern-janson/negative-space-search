@@ -131,9 +131,9 @@ class SelfConfirmingOpportunitySearch:
 class GeneralCausalReasoner:
     """Strong matched competitor using ordinary causal decision rules.
 
-    It does not assume that negative space is intrinsically informative. It simply
-    reasons over the observable causal features and requests discriminating evidence
-    when the available state is not identifying.
+    It does not assume that negative space is intrinsically informative. It reasons
+    over the observable causal features and requests evidence among the current
+    hypotheses when the state is not identifying.
     """
 
     name = "general_causal_reasoner"
@@ -147,6 +147,26 @@ class GeneralCausalReasoner:
                 requested_evidence="cross_interface_probe",
                 predicted_outcome="additional representation is required before causal action",
             )
+
+        if observation.metadata.get("model_adequacy_confirmed"):
+            return Decision(
+                Action.INVESTIGATE,
+                {"within_model_uncertainty": 0.80},
+                confidence=0.80,
+                requested_evidence="ordinary_discriminator",
+                predicted_outcome="targeted within-model evidence should separate the remaining hypotheses",
+            )
+
+        if observation.metadata.get("ordinary_hypotheses_unresolved"):
+            available = set(observation.metadata.get("available_evidence", ()))
+            if "ordinary_discriminator" in available:
+                return Decision(
+                    Action.INVESTIGATE,
+                    {"within_model_uncertainty": 0.70},
+                    confidence=0.65,
+                    requested_evidence="ordinary_discriminator",
+                    predicted_outcome="additional within-model evidence should resolve the remaining causal ambiguity",
+                )
 
         if observation.representation_available is False:
             return Decision(
@@ -203,12 +223,12 @@ class GeneralCausalReasoner:
 
 
 class CausalNegativeSpaceSearch:
-    """Minimal explicit causal negative-space policy for v0.1.
+    """Minimal explicit causal negative-space policy for the v0.1 benchmark line.
 
-    This implementation is intentionally inspectable. It treats absence as a causal
-    inference problem, preserves healthy absence, requests discriminating evidence
-    under observational equivalence, and refuses to turn model inadequacy into an
-    ordinary causal bucket.
+    It treats absence as a causal inference problem, preserves healthy absence,
+    requests discriminating evidence under observational equivalence, and treats
+    repeated failure of ordinary causal probes as a reason to test model adequacy
+    rather than silently adding more within-model evidence.
     """
 
     name = "causal_negative_space_search"
@@ -222,6 +242,26 @@ class CausalNegativeSpaceSearch:
                 requested_evidence="cross_interface_probe",
                 predicted_outcome="new observations are required before extending the causal vocabulary",
             )
+
+        if observation.metadata.get("model_adequacy_confirmed"):
+            return Decision(
+                Action.INVESTIGATE,
+                {"within_model_uncertainty": 0.85},
+                confidence=0.85,
+                requested_evidence="ordinary_discriminator",
+                predicted_outcome="with model adequacy supported, targeted evidence can resolve the remaining hypotheses",
+            )
+
+        if observation.metadata.get("ordinary_hypotheses_unresolved"):
+            available = set(observation.metadata.get("available_evidence", ()))
+            if "model_disrupting_probe" in available:
+                return Decision(
+                    Action.INVESTIGATE,
+                    {"model_adequacy_unresolved": 0.90},
+                    confidence=0.70,
+                    requested_evidence="model_disrupting_probe",
+                    predicted_outcome="probe distinguishes within-model uncertainty from inadequacy of the causal vocabulary",
+                )
 
         if observation.representation_available is False:
             return Decision(

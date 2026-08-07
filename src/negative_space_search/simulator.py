@@ -1,4 +1,4 @@
-"""Minimal v0.1 synthetic ecologies.
+"""Minimal synthetic ecologies for the v0.1 benchmark line.
 
 The simulator is intentionally small. It supplies controlled ground truth, evidence
 acquisition, and simple intervention outcomes so the search process can be attacked
@@ -137,6 +137,55 @@ def hostile_equivalence_pair() -> tuple[SyntheticCase, SyntheticCase]:
     return underinvestment, selection
 
 
+def model_adequacy_pair() -> tuple[SyntheticCase, SyntheticCase]:
+    """Return the v0.1.1 hostile pair: more data or a better question?
+
+    Both worlds expose the same initial state and the same evidence affordances.
+    Prior ordinary probes have been inconclusive. In one world the current causal
+    vocabulary is adequate and a better-targeted within-model test will eventually
+    resolve the cause. In the other world the true mechanism is outside the supplied
+    vocabulary. The first useful move is therefore a probe of model adequacy itself.
+    """
+
+    shared = EcologyObservation(
+        capability="persistent_validation_absence",
+        prevalence=0.08,
+        adoption_cost=0.40,
+        local_payoff=-0.15,
+        external_performance=None,
+        representation_available=True,
+        coordination_threshold=None,
+        visible_history=(
+            "ordinary_external_value_probe: inconclusive",
+            "ordinary_coordination_probe: inconclusive",
+        ),
+        metadata={
+            "ordinary_hypotheses_unresolved": True,
+            "available_evidence": (
+                "ordinary_discriminator",
+                "model_disrupting_probe",
+            ),
+        },
+    )
+
+    within_model = SyntheticCase(
+        case_id="adequacy_A_within_model_uncertainty",
+        observation=shared,
+        latent_causes=(LatentCause.UNDERINVESTMENT,),
+        available_evidence=("ordinary_discriminator", "model_disrupting_probe"),
+        available_interventions=("change_incentives",),
+        observational_equivalence_group="within_model_vs_model_inadequate",
+    )
+    model_inadequate = SyntheticCase(
+        case_id="adequacy_B_model_inadequate",
+        observation=shared,
+        latent_causes=(LatentCause.MODEL_INADEQUATE,),
+        available_evidence=("ordinary_discriminator", "model_disrupting_probe"),
+        observational_equivalence_group="within_model_vs_model_inadequate",
+    )
+    return within_model, model_inadequate
+
+
 def acquire_evidence(case: SyntheticCase, evidence_name: str) -> EvidenceResult:
     """Apply one controlled evidence action and return the newly observable state."""
 
@@ -157,6 +206,42 @@ def acquire_evidence(case: SyntheticCase, evidence_name: str) -> EvidenceResult:
         return EvidenceResult(
             evidence_name,
             replace(case.observation, external_performance=value),
+            note,
+        )
+
+    if evidence_name == "ordinary_discriminator":
+        # Deliberately non-discriminating between the v0.1.1 pair. More ordinary
+        # within-model measurement does not answer whether the model itself is adequate.
+        return EvidenceResult(
+            evidence_name,
+            replace(
+                case.observation,
+                metadata={
+                    **case.observation.metadata,
+                    "ordinary_discriminator_result": "still_ambiguous",
+                },
+            ),
+            "Another within-model test remains compatible with both parameter uncertainty and model inadequacy.",
+        )
+
+    if evidence_name == "model_disrupting_probe":
+        if cause is LatentCause.MODEL_INADEQUATE:
+            metadata = {
+                **case.observation.metadata,
+                "current_causal_vocabulary_residual": True,
+                "model_adequacy_probe": "residual_found",
+            }
+            note = "Cross-interface perturbation exposes a stable residual that no supplied causal hypothesis predicts."
+        else:
+            metadata = {
+                **case.observation.metadata,
+                "model_adequacy_confirmed": True,
+                "model_adequacy_probe": "no_residual",
+            }
+            note = "Cross-interface perturbation finds no residual; the supplied causal vocabulary remains adequate."
+        return EvidenceResult(
+            evidence_name,
+            replace(case.observation, metadata=metadata),
             note,
         )
 

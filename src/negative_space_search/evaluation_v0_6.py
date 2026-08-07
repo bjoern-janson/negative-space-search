@@ -62,7 +62,7 @@ def summarize(
             for _, decision in non_inadequate
         ]),
         boundary_nonhallucination_rate=_rate([
-            decision.selected_probe == LANGUAGE_EXPANSION_PROBE
+            decision.selected_probe not in decision.matched_resolving_probes
             for _, decision in inadequate
         ]),
         adequate_case_selection_rate=_rate([

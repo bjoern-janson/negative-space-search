@@ -27,7 +27,9 @@ It abstained without correctly identifying causal-vocabulary inadequacy or reque
 
 **v0.4 update:** run `31174650351` showed that an adaptive learner can revise from rewarded surface cues to stable pairwise relations using raw resolved histories, and then route `R_NOVEL` to `model_disrupting_probe` because none of the repaired known-probe relations activate. This is stronger than relying on an explicit `unclassified_residual` field, but NR-001 remains open: the relation operators were supplied in a frozen candidate library and the no-match-to-model-check rule was fixed in advance.
 
-**Next discriminator:** withhold at least one relation operator required by a held-out failure and test whether the system can construct or compose a new distinction, rather than merely selecting among supplied relations or falling through to a fixed model-check rule.
+**v0.5 update:** run `31175390339` localized a supplied single-relation basis failure for `interaction_probe` and conditionally constructed `AND(pair0_close,pair1_far)`. This is a genuine step beyond selecting a pre-existing complete relation, but it still does not close NR-001. The raw measurement interface, primitive relations, `AND` constructor, adequacy threshold, scoring rule, maximum construction depth, and no-match-to-model-check policy were all supplied. The system repaired a basis *within a supplied construction language*; it did not identify construction-language inadequacy or invent a missing relation operator.
+
+**Next discriminator:** withhold a relation constructor required by the target distinction while retaining more primitive operations, then test whether the system can identify that the construction language itself is inadequate and generate a new operator without globally expanding every representation.
 
 **Status:** open.
 
@@ -58,9 +60,11 @@ Both avoided guessing and requested `controlled_external_value_test` for the ide
 
 **v0.4 update:** a neutrally named `adaptive_representation_learner`, given no negative-space-specific semantic labels, repaired its representation from raw resolved histories and reached the fixed typed oracle on the frozen held-out cases. v0.4 did not include a separate negative-space-labelled learner because the experiment targeted representation acquisition, so it provides no new evidence for a unique negative-space mechanism. If anything, it further supports treating the useful object as adaptive causal representation repair until a matched comparison shows otherwise.
 
-**Claim constraint:** the current evidence supports history-sensitive, representation-sensitive search control. It does not support a distinct performance advantage for explicit negative-space framing over a matched strong causal reasoner preserving or learning the same distinctions.
+**v0.5 update:** the successful system was again neutrally instantiated as `gated_basis_repair_learner`. It detected basis inadequacy, constructed the withheld conjunction, and matched the brute-force composition learner at lower search cost without using a negative-space-specific algorithm or label. v0.5 therefore adds evidence for selective representation/basis repair, not for a unique negative-space mechanism.
 
-**Next discriminator:** if negative-space guidance is tested again, compare it against a generic representation learner with the same raw history, candidate-construction operations, search budget, and representation cost.
+**Claim constraint:** the current evidence supports history-sensitive, representation-sensitive search control and selective basis repair. It does not support a distinct performance advantage for explicit negative-space framing over matched strong causal or representation-learning processes.
+
+**Next discriminator:** only reopen a negative-space-specific mechanism claim under a matched construction-language benchmark with identical raw history, primitive operations, synthesis budget, evidence budget, and representation/search costs.
 
 **Status:** open.
 
@@ -91,9 +95,11 @@ The frozen v0.1.1 controls failed in opposite directions: the negative-space pol
 
 **v0.4 update:** the raw-history adaptive learner successfully repaired its representation without any negative-space-specific mechanism in the learner name or scoring rule. This does not directly test the v0.2 comparison, but it reinforces the current boundary: adaptive search-control competence can be instantiated generically.
 
-**Claim constraint:** do not cite v0.2, v0.3, or v0.4 as evidence that `Psi_NS` outperforms strong adaptive causal search when relevant history structure and representation-learning affordances are matched.
+**v0.5 update:** conditional basis expansion was also demonstrated by a generic learner. This strengthens the evidence that the empirically useful object is adaptive search/representation repair under failure, not a mechanism so far shown to be unique to negative-space framing.
 
-**Next discriminator:** only reopen the mechanism-identity question under a matched representation-construction benchmark; otherwise treat negative-space as a research interface or search framing rather than an established unique algorithm.
+**Claim constraint:** do not cite v0.2, v0.3, v0.4, or v0.5 as evidence that `Psi_NS` outperforms strong adaptive causal search or generic representation repair when relevant affordances are matched.
+
+**Next discriminator:** only reopen the mechanism-identity question under a matched operator-construction experiment; otherwise treat negative-space as a research interface or search framing rather than an established unique algorithm.
 
 **Status:** open.
 
@@ -130,11 +136,13 @@ The two typed systems shared the same representation and decision rule and diffe
 
 **v0.4 update:** run `31174650351` removed one part of the supplied-representation objection. The adaptive learner received raw unlabeled paired measurements and selected useful relations only after a cheaper surface abstraction failed. Its held-out evidence-selection rate improved from `0.0` to `1.0`, with `representation_change_rate = 1.0`. However, the generic relation operators `high/low/near_zero/close/far/sign_disagree` were still supplied, and no negative-space-labelled learner was needed to obtain the repair. The gain therefore belongs to representation selection and repair, not to negative-space identity or unrestricted representation invention.
 
-**Claim constraint:** attribute the current v0.3-v0.4 gains to representation quality and repair under failure, not to negative-space identity.
+**v0.5 update:** run `31175390339` attacked the supplied complete-relation objection one level deeper. The useful `interaction_probe` relation was withheld from the initial single-relation basis. The generic gated learner correctly diagnosed that the best single relation had balanced accuracy `0.8333 < 0.90`, searched compositions only for that probe, and constructed `AND(pair0_close,pair1_far)`, reaching held-out evidence selection `1.0` versus `0.8333` for the fixed single basis. However, `AND` and the primitive operands were supplied. The result is therefore basis composition and selective repair, not primitive operator invention or negative-space identity.
 
-**Additional limitation:** the v0.3 case matrix deliberately made compressed surface similarity misleading; v0.4 deliberately rewarded a cheap spurious surface cue before breaking it. These are controlled representation tests, not evidence that generic causal histories naturally fail at the reported rates.
+**Claim constraint:** attribute the current v0.3-v0.5 gains to representation quality, evidence-conditioned repair, and selective basis expansion under failure—not to negative-space identity.
 
-**Next discriminator:** attack the candidate relation basis itself under cost, distractors, noise, and at least one withheld operator. Preserve the null if a generic representation learner constructs the same useful distinctions as any negative-space-guided process.
+**Additional limitation:** the benchmark sequence remains synthetic and deliberately adversarial to surface representations. v0.5 includes measurement jitter and misleading surface hints but no corrupted resolving-probe labels; do not generalize it to label-noise robustness.
+
+**Next discriminator:** attack the construction language itself under explicit search cost, representation cost, noisy/ambiguous attribution, and a matched generic program-synthesis baseline. Preserve the null if generic synthesis constructs the required operator at equal or lower cost.
 
 **Status:** open.
 

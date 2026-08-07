@@ -25,7 +25,9 @@ It abstained without correctly identifying causal-vocabulary inadequacy or reque
 
 **v0.3 update:** run `31173841990` showed that a typed representation can route an explicitly unclassified held-out residual to a model-disrupting probe. This remains a representation-ablation result, not closure of the original localization failure; the relevant distinction was explicitly preserved in history rather than inferred from the original case.
 
-**Next discriminator:** test whether the system can learn which distinctions deserve preservation and when model-adequacy checks are warranted when those fields are noisy, partial, or not pre-typed.
+**v0.4 update:** run `31174650351` showed that an adaptive learner can revise from rewarded surface cues to stable pairwise relations using raw resolved histories, and then route `R_NOVEL` to `model_disrupting_probe` because none of the repaired known-probe relations activate. This is stronger than relying on an explicit `unclassified_residual` field, but NR-001 remains open: the relation operators were supplied in a frozen candidate library and the no-match-to-model-check rule was fixed in advance.
+
+**Next discriminator:** withhold at least one relation operator required by a held-out failure and test whether the system can construct or compose a new distinction, rather than merely selecting among supplied relations or falling through to a fixed model-check rule.
 
 **Status:** open.
 
@@ -54,9 +56,11 @@ Both avoided guessing and requested `controlled_external_value_test` for the ide
 
 **v0.3 update:** run `31173841990` again found identity once representation was matched: `typed_general_causal_history` and `structured_negative_space_history` produced identical decisions and metrics. The difference was between typed and compressed history, not between negative-space and general causal labels.
 
-**Claim constraint:** the current evidence supports history-sensitive, representation-sensitive search control. It does not support a distinct performance advantage for explicit negative-space framing over a matched strong causal reasoner preserving the same distinctions.
+**v0.4 update:** a neutrally named `adaptive_representation_learner`, given no negative-space-specific semantic labels, repaired its representation from raw resolved histories and reached the fixed typed oracle on the frozen held-out cases. v0.4 did not include a separate negative-space-labelled learner because the experiment targeted representation acquisition, so it provides no new evidence for a unique negative-space mechanism. If anything, it further supports treating the useful object as adaptive causal representation repair until a matched comparison shows otherwise.
 
-**Next discriminator:** compare learned representation selection under matched raw histories and costs rather than hand-specified typed fields.
+**Claim constraint:** the current evidence supports history-sensitive, representation-sensitive search control. It does not support a distinct performance advantage for explicit negative-space framing over a matched strong causal reasoner preserving or learning the same distinctions.
+
+**Next discriminator:** if negative-space guidance is tested again, compare it against a generic representation learner with the same raw history, candidate-construction operations, search budget, and representation cost.
 
 **Status:** open.
 
@@ -85,9 +89,11 @@ The frozen v0.1.1 controls failed in opposite directions: the negative-space pol
 
 **v0.3 update:** the next representation-transfer test did not rescue a unique negative-space mechanism. Typed general causal and typed negative-space histories again tied exactly.
 
-**Claim constraint:** do not cite v0.2 or v0.3 as evidence that `Psi_NS` outperforms strong adaptive causal search when relevant history structure is matched.
+**v0.4 update:** the raw-history adaptive learner successfully repaired its representation without any negative-space-specific mechanism in the learner name or scoring rule. This does not directly test the v0.2 comparison, but it reinforces the current boundary: adaptive search-control competence can be instantiated generically.
 
-**Next discriminator:** test whether the negative-space framing helps discover or select useful representations under noise and representation cost, rather than receiving them by construction.
+**Claim constraint:** do not cite v0.2, v0.3, or v0.4 as evidence that `Psi_NS` outperforms strong adaptive causal search when relevant history structure and representation-learning affordances are matched.
+
+**Next discriminator:** only reopen the mechanism-identity question under a matched representation-construction benchmark; otherwise treat negative-space as a research interface or search framing rather than an established unique algorithm.
 
 **Status:** open.
 
@@ -122,11 +128,13 @@ The two typed systems shared the same representation and decision rule and diffe
 
 **What this does not identify:** a unique negative-space algorithm or framing advantage. A generic causal learner with the same typed representation received the full benefit.
 
-**Claim constraint:** attribute the current v0.3 gain to representation quality, not to negative-space identity.
+**v0.4 update:** run `31174650351` removed one part of the supplied-representation objection. The adaptive learner received raw unlabeled paired measurements and selected useful relations only after a cheaper surface abstraction failed. Its held-out evidence-selection rate improved from `0.0` to `1.0`, with `representation_change_rate = 1.0`. However, the generic relation operators `high/low/near_zero/close/far/sign_disagree` were still supplied, and no negative-space-labelled learner was needed to obtain the repair. The gain therefore belongs to representation selection and repair, not to negative-space identity or unrestricted representation invention.
 
-**Additional limitation:** the case matrix was deliberately constructed so compressed surface similarity pointed to the wrong training topology. This is a valid representation ablation but not evidence that compressed causal histories generally fail in natural settings.
+**Claim constraint:** attribute the current v0.3-v0.4 gains to representation quality and repair under failure, not to negative-space identity.
 
-**Next discriminator:** force the representation itself to be learned or selected under cost, noise, partial observability, and distractor fields. Include cases where the current typed representation is actively misleading.
+**Additional limitation:** the v0.3 case matrix deliberately made compressed surface similarity misleading; v0.4 deliberately rewarded a cheap spurious surface cue before breaking it. These are controlled representation tests, not evidence that generic causal histories naturally fail at the reported rates.
+
+**Next discriminator:** attack the candidate relation basis itself under cost, distractors, noise, and at least one withheld operator. Preserve the null if a generic representation learner constructs the same useful distinctions as any negative-space-guided process.
 
 **Status:** open.
 

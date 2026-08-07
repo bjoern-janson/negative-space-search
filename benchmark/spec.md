@@ -4,55 +4,47 @@
 
 Given an observed absence in a synthetic adaptive ecology, can a search process choose the epistemically appropriate next action under matched information and cost constraints?
 
-The benchmark is designed to test causal diagnosis and decision quality, not novelty production.
+The benchmark tests causal diagnosis and decision quality, not novelty production.
 
 ## Input
 
-Each episode exposes an observable ecology state `Z_t`. The exact implementation may evolve, but v0.1 should contain only information needed to make the task discriminable.
+Each episode exposes observable ecology state `Z_t`. v0.1 uses only fields needed to make controlled cases discriminable:
 
-Candidate observable fields include:
+- capability prevalence;
+- adoption cost;
+- local payoff;
+- external performance when visible;
+- representation availability;
+- coordination threshold when visible;
+- visible history;
+- available evidence actions;
+- available interventions.
 
-- prevalence of the capability or strategy;
-- local adoption cost;
-- institutional / local payoff;
-- external performance signal;
-- available measurements and distinctions;
-- adoption dependence on other actors;
-- historical evidence made visible to the agent;
-- available evidence-acquisition actions;
-- available interventions and their costs.
+The latent cause is withheld.
 
-The latent cause is withheld from the search process.
+## Latent environments
 
-## Latent causes
-
-### Underinvestment
+### A — underinvestment
 
 The capability is representable and externally useful, but local payoff or cost discourages adoption.
 
-### Underrepresentation
+### B — underrepresentation
 
 The capability or relevant distinction cannot be adequately formulated or measured under the current interface.
 
-### Justified selection
+### C — justified selection
 
-The capability is absent because selection against it is appropriate under the external performance criterion.
+The capability is absent because selection against it is appropriate under the external performance criterion. This is the canonical healthy-absence / false-opportunity control.
 
-This class supplies healthy absences and false-opportunity controls.
+### D — coordination failure
 
-### Coordination failure
+The capability becomes valuable only above an adoption threshold or when shared infrastructure exists. Unilateral adoption can be locally irrational.
 
-The capability is valuable only above an adoption threshold or when shared infrastructure exists. Unilateral adoption can be locally irrational.
+### E — model inadequacy
 
-### Model-inadequate / novel-cause case
+The true mechanism is intentionally outside the supplied ordinary causal vocabulary. Success requires detecting representational inadequacy rather than forcing a familiar label.
 
-The true mechanism is intentionally outside the supplied causal vocabulary. Success requires detecting residual model inadequacy rather than forcing the case into a familiar category.
-
-This is a meta-failure condition, not an additional ordinary absence class.
-
-## Mixed causes
-
-Later v0.1.x episodes may combine causal mechanisms. A diagnosis may therefore be represented as non-exclusive weights or scores rather than a forced probability simplex.
+This is a benchmark meta-failure condition, not a fifth ordinary absence theory.
 
 ## Decision space
 
@@ -72,68 +64,67 @@ abstain
 
 ## Output contract
 
-A benchmark submission should return, at minimum:
+A submission returns, at minimum:
 
 ```text
-candidate_absence
 causal_diagnosis
 decision
 confidence
 ```
 
-When `decision == investigate`, it must also specify:
+When `decision == investigate`, it should specify:
 
 ```text
 requested_evidence
 predicted_discrimination
 ```
 
-When `decision == intervene`, it must also specify:
+When `decision == intervene`, it should specify:
 
 ```text
 intervention
 predicted_outcome
 ```
 
-## Mandatory controls
+## Mandatory hostile control: observational equivalence
 
-### False opportunity
+The simulator constructs two worlds:
 
-Surface evidence suggests a neglected capability, but the hidden ecology indicates that the absence is healthy or correctly selected.
+```text
+World I: underinvestment
+World S: justified selection
+Z_I == Z_S
+```
 
-The benchmark must reward `preserve` or justified non-intervention rather than opportunity generation.
+The initial observation hides external value. A system that immediately diagnoses either latent cause fails the identifiability test.
 
-### Observational equivalence
+The correct initial behavior is to request `controlled_external_value_test`, or to abstain if that evidence is unavailable.
 
-At least two latent causes produce the same or approximately the same initial observable state.
+## Counterfactual intervention validation
 
-A correct system must not receive full credit for guessing the hidden cause. It should select discriminating evidence when available, or abstain when the cause is not currently identifiable.
+An intervention may succeed through a mechanism different from the proposed diagnosis. Controlled environments must support removal of accidental mechanisms so causal understanding can be distinguished from lucky exploitation.
 
-### Counterfactual intervention validation
+## Ecological adaptation
 
-An intervention may succeed through a mechanism different from the one proposed by the search process.
+After a successful intervention, the population or payoff landscape may respond. Durability is measured after this response, not only at first contact.
 
-The benchmark should selectively disable accidental mechanisms and retest the intervention to distinguish causal understanding from lucky exploitation.
+## Held-out search adaptation
 
-### Ecological adaptation
-
-After a successful intervention, the population or payoff landscape changes. The benchmark retests whether the proposed advantage persists after the surrounding ecology responds.
-
-### Held-out search adaptation
-
-History from prior episodes may update the search process. Improvement must be measured on held-out ecologies, including new causal mixtures or structures, rather than only replayed environments.
+History may update the search process. Improvement counts only on held-out ecologies, including new causal mixtures or structures, rather than replayed environments.
 
 ## Baseline contract
 
 Initial baselines:
 
-1. gap heuristic;
-2. novelty heuristic;
-3. performance heuristic;
-4. self-confirming opportunity search;
-5. causal negative-space search.
+1. seeded random action;
+2. gap heuristic;
+3. novelty heuristic;
+4. short-term performance heuristic;
+5. self-confirming opportunity search;
+6. general causal reasoner;
+7. causal negative-space search.
 
-All baselines must receive matched:
+All baselines receive matched:
 
 - observable state;
 - action affordances;
@@ -142,11 +133,17 @@ All baselines must receive matched:
 - history capacity;
 - outcome access.
 
-A baseline may choose `investigate` or `abstain`; the benchmark must not give the causal negative-space system privileged tools.
+No policy receives privileged evidence tools.
 
 ## Evaluation principle
 
 The benchmark reports a metric vector rather than a single leaderboard score.
+
+```text
+Q_Psi = (Q_q, Q_n, Q_E, Q_A, Q_Y, Q_CF, Q_abstain, Q_D)
+```
+
+The executable v0.1 evaluator implements only metrics supported by the current controlled cases. Missing dimensions stay explicitly unmeasured.
 
 Success is comparative:
 
@@ -158,6 +155,6 @@ The causal negative-space approach earns additional authority only if it provide
 
 ## v0.1 stopping rule
 
-Do not add new causal categories, agents, infrastructure, or meta-operators because a case is difficult.
+Do not add causal categories, agents, infrastructure, or meta-operators because a case is difficult.
 
-First determine whether the failure can be localized to the current environment specification, search policy, evidence interface, intervention design, or metric contract.
+First localize the failure to the current environment, search policy, evidence interface, intervention design, metric contract, or causal vocabulary.

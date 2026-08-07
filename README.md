@@ -1,98 +1,83 @@
 # negative-space-search
 
-**Negative-Space Search** is an empirical research project on how adaptive systems decide whether an observed absence deserves intervention, preservation, further investigation, or abstention.
+**Negative-Space Search** is an empirical research project on how adaptive systems allocate investigative attention around apparent absences without converting possibility into epistemic authority.
 
 It is the discovery counterpart to **Correctable Lineage**:
 
-- Negative-Space Search (`Ψ`) allocates investigative attention.
-- Evidence determines epistemic authority.
-- Correctable Lineage governs what becomes inherited structure.
+- Negative-Space Search (`Psi`) allocates investigative attention.
+- Evidence determines epistemic authority through updating (`U`).
+- Correctable Lineage governs what remains justified as inherited structure (`L`).
 
 > **Keep possibility open; keep authority earned.**
 
-## Core constraint
-
-Absence is not evidence of opportunity:
+## Frozen core
 
 ```text
-absence ≠ opportunity
-absence → causal inference problem
+possibility != authority
+candidate != claim
+Psi != U
+evidence changes only identified scope
 ```
 
-The project asks whether an explicit causal negative-space search process can outperform simpler opportunity-generation strategies by distinguishing:
-
-- maladaptive underprovision;
-- underrepresentation / missing distinctions;
-- justified selection against a capability;
-- coordination failures;
-- uncertainty requiring discriminating evidence;
-- cases where the current causal vocabulary is itself inadequate.
-
-## Minimal architecture
+The operational cycle is:
 
 ```text
-L_t → Ψ_t → C_t → W/e_t → U_t → L_{t+1}
+L_t -> Psi_t -> C_t -> W/e_t -> U_t -> L_t+1
 ```
 
-Where:
-
-- `L_t` — inherited validated structure;
-- `Ψ_t` — causal negative-space search process;
-- `C_t` — candidate intervention or distinction;
-- `W/e_t` — external consequence and evidence;
-- `U_t` — evidence-conditioned update;
-- `L_{t+1}` — revised lineage.
-
-The firewall is deliberate:
+The project treats absence as a causal inference problem:
 
 ```text
-Ψ proposes.
-e authorizes.
+absence != opportunity
 ```
 
-Candidate generation must not manufacture epistemic authority.
+A search process must distinguish justified absence, maladaptive absence, uncertainty requiring evidence, and cases where its own causal vocabulary is inadequate.
 
-## Initial benchmark
+The normative v0.1 core is frozen in [`docs/frozen-core.md`](docs/frozen-core.md).
 
-Given an observed absence, select an action:
+## v0.1 benchmark
+
+Task: given an observed absence in a synthetic research ecology, choose:
 
 ```text
 intervene | preserve | investigate | abstain
 ```
 
-The first benchmark evaluates a search process on a vector of capabilities rather than a single score:
-
-- consequential-absence identification;
-- causal diagnosis;
-- evidence acquisition under non-identifiability;
-- intervention matching;
-- consequence prediction;
-- counterfactual causal fidelity;
-- calibrated abstention;
-- durability after ecological adaptation;
-- improvement from preserved diagnostic history on held-out ecologies.
-
-Synthetic environments begin with controlled latent causes:
+The five controlled environment families are:
 
 1. underinvestment;
 2. underrepresentation;
 3. justified selection;
 4. coordination failure;
-5. model-inadequate / novel-cause cases.
+5. model-inadequate / novel-mechanism condition.
 
-False opportunities and observationally equivalent cases are mandatory controls.
+The first hostile test constructs an underinvestment world and a justified-selection world with identical initial observations. A policy that guesses the cause fails. It must request the discriminating external-value experiment or abstain if that evidence is unavailable.
+
+See [`docs/benchmark-spec-v0.1.md`](docs/benchmark-spec-v0.1.md) and [`benchmark/spec.md`](benchmark/spec.md).
 
 ## Baselines
 
-The initial comparison set is intentionally small:
+v0.1 includes:
 
+- seeded random action;
 - gap heuristic;
 - novelty heuristic;
-- performance heuristic;
+- short-term performance heuristic;
 - self-confirming opportunity search;
+- general causal reasoner;
 - causal negative-space search.
 
-All baselines should receive matched information, action affordances, evidence budgets, and intervention budgets.
+All policies receive matched observable information and action affordances.
+
+## Metrics
+
+No single score is canonical. The target metric vector is:
+
+```text
+Q_Psi = (Q_q, Q_n, Q_E, Q_A, Q_Y, Q_CF, Q_abstain, Q_D)
+```
+
+The initial executable evaluator covers only the dimensions that the toy cases identify cleanly. Unimplemented dimensions remain unscored rather than being approximated into a synthetic aggregate.
 
 ## Repository structure
 
@@ -100,72 +85,63 @@ All baselines should receive matched information, action affordances, evidence b
 negative-space-search/
 ├── README.md
 ├── pyproject.toml
+├── .github/workflows/ci.yml
 ├── docs/
-│   └── framework.md
+│   ├── framework.md
+│   ├── frozen-core.md
+│   ├── benchmark-spec-v0.1.md
+│   └── failure-taxonomy.md
 ├── benchmark/
 │   ├── spec.md
 │   └── metrics.md
-├── src/
-│   └── negative_space_search/
-│       ├── __init__.py
-│       ├── environments.py
-│       └── baselines.py
+├── src/negative_space_search/
+│   ├── __init__.py
+│   ├── environments.py
+│   ├── simulator.py
+│   ├── baselines.py
+│   ├── evaluation.py
+│   └── run_v0_1.py
+├── tests/
+│   └── test_v0_1.py
 ├── experiments/
 │   └── README.md
 └── results/
     └── README.md
 ```
 
-### Directory purposes
+## Run v0.1
 
-- `docs/` — frozen conceptual constraints needed to interpret experiments; not an expanding ontology.
-- `benchmark/` — formal task, latent-state, action, identifiability, and scoring specifications.
-- `src/negative_space_search/` — minimal executable interfaces for synthetic ecologies and search baselines.
-- `experiments/` — experiment plans/configurations once the benchmark runner exists.
-- `results/` — reproducible result summaries and links to raw artifacts.
-
-## Initial files
-
-The first repository version contains exactly ten substantive files:
-
-1. `README.md` — project contract, scope, tree, and exclusions.
-2. `pyproject.toml` — minimal Python project metadata.
-3. `docs/framework.md` — compact conceptual specification and invariants.
-4. `benchmark/spec.md` — v0.1 task and environment contract.
-5. `benchmark/metrics.md` — multidimensional evaluation contract.
-6. `src/negative_space_search/__init__.py` — package surface.
-7. `src/negative_space_search/environments.py` — controlled latent-cause data model.
-8. `src/negative_space_search/baselines.py` — baseline policy interfaces.
-9. `experiments/README.md` — rules for future experiment records.
-10. `results/README.md` — rules for future result records.
-
-## What is explicitly not included yet
-
-This repository intentionally does **not** include:
-
-- a universal theory of adaptation;
-- new ontology beyond what the first benchmark requires;
-- a scalar “corrigibility” or “meta-solver” leaderboard score;
-- claims that the four initial absence mechanisms are exhaustive;
-- an `N_X` catch-all category (model inadequacy is a failure of the current vocabulary, not another world-state class);
-- production ML infrastructure, agent frameworks, databases, dashboards, or distributed execution;
-- real-world science-policy conclusions before synthetic benchmark results exist;
-- automatic authority updates from `Ψ` outputs;
-- a bridge layer between candidate generation and evidence;
-- a new meta-operator above `Ψ`;
-- release/archival machinery before a result warrants freezing;
-- a license choice until one is selected deliberately.
-
-## Research status
-
-**Status: v0.1 scaffold / pre-experiment.**
-
-The conceptual architecture is treated as frozen for the initial benchmark. New primitives should be added only when a recurring empirical failure cannot be discriminated using the current structure.
-
-The first meaningful result may be negative:
-
-```text
-H0: Q(Ψ_negative-space) ≤ Q(Ψ_baseline)
+```bash
+python -m pip install -e .
+python -m unittest discover -s tests -v
+python -m negative_space_search.run_v0_1
 ```
 
-If explicit causal negative-space search does not outperform strong matched baselines after accounting for its complexity and evidence cost, the architecture should be revised rather than protected.
+CI runs the same commands on pushes to `main` and on pull requests.
+
+## Explicitly not included yet
+
+- a universal theory of adaptation;
+- new primitives beyond the frozen v0.1 core;
+- a scalar meta-solver or corrigibility leaderboard;
+- a claim that the four ordinary absence mechanisms are exhaustive;
+- an `N_X` catch-all category masquerading as a solution to model inadequacy;
+- real-science case studies before the synthetic benchmark earns them;
+- integration with Correctable Lineage before the evidence boundary is tested;
+- production ML/agent infrastructure, databases, dashboards, or distributed execution;
+- an operator above `Psi`;
+- automatic authority updates from search outputs;
+- release/archival machinery before a result warrants freezing;
+- a license choice made by default rather than deliberately.
+
+## Status
+
+**v0.1 — executable synthetic benchmark scaffold.**
+
+The null hypothesis remains explicit:
+
+```text
+H0: Q(Psi_negative_space) <= Q(Psi_baseline)
+```
+
+The next conceptual change must be forced by a recurring empirical failure that the frozen structure cannot discriminate. Until then, the project is an experimental object.

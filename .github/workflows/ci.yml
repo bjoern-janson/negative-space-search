@@ -28,3 +28,5 @@ jobs:
         run: python -m negative_space_search.run_v0_3
       - name: Execute v0.4 representation-acquisition benchmark
         run: python -m negative_space_search.run_v0_4
+      - name: Execute v0.5 basis-failure benchmark
+        run: python -m negative_space_search.run_v0_5

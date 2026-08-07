@@ -28,7 +28,7 @@ The pre-repair language is `current_language()` from v0.6: 78 expressions over p
 Terminals:
 
 ```text
-t0 t1 t2 t3 0.0 0.5 1.0
+t0 t1 t2 t3
 ```
 
 Numeric constructors:
@@ -45,7 +45,7 @@ GT(x,y)
 LT(x,y)
 ```
 
-Numeric depth is at most one arithmetic constructor. Full predicates are generated programmatically; no target semantic predicate is stored as a candidate list.
+No numeric constants are supplied. Numeric expression depth is at most one arithmetic constructor. Full predicates are generated programmatically; no target semantic predicate is stored as a candidate list.
 
 ## Hostile family requirements
 

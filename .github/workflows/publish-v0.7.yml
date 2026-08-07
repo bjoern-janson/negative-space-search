@@ -1,0 +1,49 @@
+name: publish frozen v0.7 release
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/publish-v0.7.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create v0.7 release if absent
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const tag = 'v0.7';
+            try {
+              await github.rest.repos.getReleaseByTag({ owner, repo, tag });
+              core.info(`Release ${tag} already exists; no action required.`);
+            } catch (error) {
+              if (error.status !== 404) throw error;
+              await github.rest.repos.createRelease({
+                owner,
+                repo,
+                tag_name: tag,
+                target_commitish: context.sha,
+                name: 'Negative-Space Search v0.7: Search Governance, Not Discovery',
+                body: [
+                  'Frozen empirical research artifact for external evaluation.',
+                  '',
+                  '**Core claim:** Negative-Space Search does not currently demonstrate superior invention. Its supported contribution is conditional allocation of representational search: determining when existing explanatory structures are demonstrably inadequate and when expansion is unwarranted.',
+                  '',
+                  '**Authority boundary:** Psi allocates attention/search effort. Evidence allocates authority.',
+                  '',
+                  'v0.7 preserves the repair quality of matched always-expand generic synthesis while reducing candidate evaluations from 7800 to 5200 in the controlled benchmark.',
+                  '',
+                  'See README.md, CLAIMS.md, RESULTS.md, NEGATIVE_RESULTS.md, METHOD.md, REPRODUCTION.md, CITATION.cff, and .zenodo.json.'
+                ].join('\n'),
+                draft: false,
+                prerelease: false
+              });
+              core.info(`Created release ${tag}.`);
+            }

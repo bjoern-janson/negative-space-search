@@ -1,7 +1,7 @@
-"""Minimal evaluators for the first executable benchmark.
+"""Minimal evaluators for the executable benchmark line.
 
-These checks intentionally cover only what v0.1 can identify cleanly. They do not
-collapse the full Q_Psi metric vector into a single score.
+These checks intentionally cover only what the current toy environments identify
+cleanly. They do not collapse the full Q_Psi metric vector into a single score.
 """
 
 from __future__ import annotations
@@ -61,11 +61,36 @@ class HostilePairScore:
         return asdict(self)
 
 
+@dataclass(frozen=True)
+class ModelAdequacyScore:
+    """v0.1.1: separate search for evidence from interpretation of evidence."""
+
+    policy: str
+    same_initial_observation: bool
+    initial_non_guessing_action: bool
+    model_adequacy_probe_requested: bool
+    within_model_after_probe_correct: bool
+    model_inadequacy_after_probe_correct: bool
+    passed: bool
+
+    def to_dict(self) -> dict[str, object]:
+        return asdict(self)
+
+
 def _diagnosis_supported(case: SyntheticCase, decision: Decision) -> bool:
     expected_keys: set[str] = set()
     for cause in case.latent_causes:
         expected_keys.update(DIAGNOSIS_KEYS[cause])
     return bool(expected_keys.intersection(decision.diagnosis))
+
+
+def _regime_label(decision: Decision) -> str | None:
+    keys = set(decision.diagnosis)
+    if keys.intersection({"current_vocabulary_inadequate", "model_inadequacy"}):
+        return "model_inadequacy_suspected"
+    if "within_model_uncertainty" in keys:
+        return "within_model_uncertainty"
+    return None
 
 
 def score_initial_case(policy: SearchPolicy, case: SyntheticCase) -> InitialCaseScore:
@@ -104,7 +129,7 @@ def score_hostile_pair(
     underinvestment_case: SyntheticCase,
     selection_case: SyntheticCase,
 ) -> HostilePairScore:
-    """Score the observational-equivalence test before any evidence is acquired."""
+    """Score the v0.1 observational-equivalence test before evidence acquisition."""
 
     first = policy.decide(underinvestment_case.observation)
     second = policy.decide(selection_case.observation)
@@ -123,4 +148,62 @@ def score_hostile_pair(
         discriminating_evidence_requested=discriminating_evidence_requested,
         same_action_on_same_observation=same_action_on_same_observation,
         passed=non_guessing_action and discriminating_evidence_requested and same_action_on_same_observation,
+    )
+
+
+def score_model_adequacy_pair(
+    policy: SearchPolicy,
+    within_model_case: SyntheticCase,
+    model_inadequate_case: SyntheticCase,
+) -> ModelAdequacyScore:
+    """Score whether a policy asks 'more data or a better question?'
+
+    The initial observations are identical. Evidence-selection quality is scored from
+    the policy's own choice. Evidence-interpretation quality is scored separately by
+    supplying the same model-disrupting probe to every policy. This preserves the
+    distinction between Psi (where to look) and U-like interpretation (what evidence
+    warrants after it arrives).
+    """
+
+    from .simulator import acquire_evidence
+
+    first = policy.decide(within_model_case.observation)
+    second = policy.decide(model_inadequate_case.observation)
+
+    same_initial_observation = within_model_case.observation == model_inadequate_case.observation
+    allowed = {Action.INVESTIGATE, Action.ABSTAIN}
+    initial_non_guessing_action = first.action in allowed and second.action in allowed
+    model_adequacy_probe_requested = (
+        first.requested_evidence == "model_disrupting_probe"
+        and second.requested_evidence == "model_disrupting_probe"
+    )
+
+    within_observation = acquire_evidence(within_model_case, "model_disrupting_probe").observation
+    inadequate_observation = acquire_evidence(model_inadequate_case, "model_disrupting_probe").observation
+    within_after = policy.decide(within_observation)
+    inadequate_after = policy.decide(inadequate_observation)
+
+    within_model_after_probe_correct = (
+        _regime_label(within_after) == "within_model_uncertainty"
+        and within_after.action is Action.INVESTIGATE
+    )
+    model_inadequacy_after_probe_correct = (
+        _regime_label(inadequate_after) == "model_inadequacy_suspected"
+        and inadequate_after.action is Action.ABSTAIN
+    )
+
+    return ModelAdequacyScore(
+        policy=policy.name,
+        same_initial_observation=same_initial_observation,
+        initial_non_guessing_action=initial_non_guessing_action,
+        model_adequacy_probe_requested=model_adequacy_probe_requested,
+        within_model_after_probe_correct=within_model_after_probe_correct,
+        model_inadequacy_after_probe_correct=model_inadequacy_after_probe_correct,
+        passed=(
+            same_initial_observation
+            and initial_non_guessing_action
+            and model_adequacy_probe_requested
+            and within_model_after_probe_correct
+            and model_inadequacy_after_probe_correct
+        ),
     )

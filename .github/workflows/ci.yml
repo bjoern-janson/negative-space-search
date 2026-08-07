@@ -30,3 +30,5 @@ jobs:
         run: python -m negative_space_search.run_v0_4
       - name: Execute v0.5 basis-failure benchmark
         run: python -m negative_space_search.run_v0_5
+      - name: Execute v0.6 construction-language boundary benchmark
+        run: python -m negative_space_search.run_v0_6

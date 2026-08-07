@@ -1,4 +1,4 @@
-name: v0.1 benchmark checks
+name: benchmark checks
 
 on:
   push:
@@ -16,9 +16,11 @@ jobs:
           python-version: "3.11"
       - name: Install package
         run: python -m pip install -e .
-      - name: Run hostile benchmark tests
+      - name: Run benchmark tests
         run: python -m unittest discover -s tests -v
       - name: Execute v0.1 benchmark
         run: python -m negative_space_search.run_v0_1
       - name: Execute v0.1.1 model-adequacy benchmark
         run: python -m negative_space_search.run_v0_1_1
+      - name: Execute v0.2 false-escalation benchmark
+        run: python -m negative_space_search.run_v0_2

@@ -29,7 +29,11 @@ It abstained without correctly identifying causal-vocabulary inadequacy or reque
 
 **v0.5 update:** run `31175390339` localized a supplied single-relation basis failure for `interaction_probe` and conditionally constructed `AND(pair0_close,pair1_far)`. This is a genuine step beyond selecting a pre-existing complete relation, but it still does not close NR-001. The raw measurement interface, primitive relations, `AND` constructor, adequacy threshold, scoring rule, maximum construction depth, and no-match-to-model-check policy were all supplied. The system repaired a basis *within a supplied construction language*; it did not identify construction-language inadequacy or invent a missing relation operator.
 
-**Next discriminator:** withhold a relation constructor required by the target distinction while retaining more primitive operations, then test whether the system can identify that the construction language itself is inadequate and generate a new operator without globally expanding every representation.
+**v0.6 update:** run `31176462116` demonstrated a stronger boundary diagnosis. Two resolved classes occupied the same equivalence class under all 78 supplied construction-language expressions while differing in raw ordered traces. The boundary-aware auditor distinguished this demonstrated collision from an unsupported `unknown` signature and requested `language_expansion_probe`. This still does not close the original `E_model_inadequate` failure: v0.6 was supplied with the equivalence-class comparison procedure, resolved historical labels, the raw trace field, and the rule mapping conflicting resolved signatures to language inadequacy.
+
+**v0.7 update:** run `31177528904` converted two demonstrated language collisions into successful held-out repair by generating new full predicates from the supplied trace meta-language. This is further evidence that a localized boundary diagnosis can support repair once the relevant raw substrate and a usable generator are available. It still does not solve the original unsignaled `E_model_inadequate` case, nor does it establish autonomous invention of the primitive substrate or generator `G`.
+
+**Next discriminator:** preserve the original unsignaled inadequacy case and test whether a system can acquire or construct the challenge route that reveals representational insufficiency without being handed the relevant equivalence audit, raw feature family, or fixed fallback rule.
 
 **Status:** open.
 
@@ -62,9 +66,13 @@ Both avoided guessing and requested `controlled_external_value_test` for the ide
 
 **v0.5 update:** the successful system was again neutrally instantiated as `gated_basis_repair_learner`. It detected basis inadequacy, constructed the withheld conjunction, and matched the brute-force composition learner at lower search cost without using a negative-space-specific algorithm or label. v0.5 therefore adds evidence for selective representation/basis repair, not for a unique negative-space mechanism.
 
-**Claim constraint:** the current evidence supports history-sensitive, representation-sensitive search control and selective basis repair. It does not support a distinct performance advantage for explicit negative-space framing over matched strong causal or representation-learning processes.
+**v0.6 update:** the positive boundary detector was also neutrally instantiated. v0.6 demonstrated generic identifiability-boundary auditing, not a negative-space-labelled mechanism. It therefore does not reopen the original mechanism-identity claim.
 
-**Next discriminator:** only reopen a negative-space-specific mechanism claim under a matched construction-language benchmark with identical raw history, primitive operations, synthesis budget, evidence budget, and representation/search costs.
+**v0.7 update:** the strongest repair systems were `always_expand_generic_synthesizer` and `boundary_gated_generic_synthesizer`. They generated the **same four abstractions**, achieved the same perfect held-out repair and multi-family transfer, and retained the same representation cost. Boundary gating reduced search cost from `7800` to `5200` and eliminated false expansion (`1.0 -> 0.0`), but did not improve invention quality. This further constrains any claim that negative-space framing supplies a uniquely superior generator.
+
+**Claim constraint:** the current evidence supports history-sensitive, representation-sensitive search control, boundary detection, conditional representation repair, and lower-cost timing of generic synthesis. It does not support a distinct performance advantage for explicit negative-space framing over matched strong causal or generic representation-learning/synthesis processes.
+
+**Next discriminator:** only reopen a negative-space-specific mechanism claim under a matched comparison where the generic causal/synthesis competitor has identical raw history, primitive substrate, generator, compute budget, evidence budget, and representation/search costs. A genuine language-model abstraction baseline should use an actual frozen model, not a hand-written proxy.
 
 **Status:** open.
 
@@ -97,9 +105,13 @@ The frozen v0.1.1 controls failed in opposite directions: the negative-space pol
 
 **v0.5 update:** conditional basis expansion was also demonstrated by a generic learner. This strengthens the evidence that the empirically useful object is adaptive search/representation repair under failure, not a mechanism so far shown to be unique to negative-space framing.
 
-**Claim constraint:** do not cite v0.2, v0.3, v0.4, or v0.5 as evidence that `Psi_NS` outperforms strong adaptive causal search or generic representation repair when relevant affordances are matched.
+**v0.6 update:** construction-language inadequacy was identified by a generic boundary auditor. This extends the capability ladder but does not alter the v0.2 null about negative-space-specific identity.
 
-**Next discriminator:** only reopen the mechanism-identity question under a matched operator-construction experiment; otherwise treat negative-space as a research interface or search framing rather than an established unique algorithm.
+**v0.7 update:** matched generic synthesizers showed that the value of boundary awareness was **conditional allocation of synthesis effort**, not superior synthesis. Both built identical operators and transferred identically; the gated system merely avoided expansion in adequate regions and spent one third fewer candidate evaluations.
+
+**Claim constraint:** do not cite v0.2-v0.7 as evidence that `Psi_NS` outperforms strong adaptive causal search or generic representation repair/synthesis when relevant affordances are matched. The supported differentiator is currently selective allocation of search effort under demonstrated inadequacy.
+
+**Next discriminator:** test whether boundary-conditioned allocation remains beneficial when synthesis success is uncertain, evidence is noisy or misattributed, and total epistemic cost—not deterministic candidate count—is the resource being optimized.
 
 **Status:** open.
 
@@ -138,11 +150,69 @@ The two typed systems shared the same representation and decision rule and diffe
 
 **v0.5 update:** run `31175390339` attacked the supplied complete-relation objection one level deeper. The useful `interaction_probe` relation was withheld from the initial single-relation basis. The generic gated learner correctly diagnosed that the best single relation had balanced accuracy `0.8333 < 0.90`, searched compositions only for that probe, and constructed `AND(pair0_close,pair1_far)`, reaching held-out evidence selection `1.0` versus `0.8333` for the fixed single basis. However, `AND` and the primitive operands were supplied. The result is therefore basis composition and selective repair, not primitive operator invention or negative-space identity.
 
-**Claim constraint:** attribute the current v0.3-v0.5 gains to representation quality, evidence-conditioned repair, and selective basis expansion under failure—not to negative-space identity.
+**v0.6 update:** run `31176462116` attacked the supplied construction-language sufficiency assumption. The hostile pair was identical under all 78 current-language expressions, and the generic boundary auditor correctly marked the language inadequate while preserving a separate unsupported case as unknown. This moves beyond basis selection/composition but still does not identify a uniquely negative-space representation mechanism.
 
-**Additional limitation:** the benchmark sequence remains synthetic and deliberately adversarial to surface representations. v0.5 includes measurement jitter and misleading surface hints but no corrupted resolving-probe labels; do not generalize it to label-noise robustness.
+**v0.7 update:** run `31177528904` constructed four previously unsupplied full predicates from a generic trace-expression grammar and transferred them perfectly. However, the primitive terminals and constructors (`t0..t3`, `ADD`, `SUB`, `GT`, `LT`) and the synthesis procedure were supplied. The always-expand generic synthesizer constructed the same predicates at the same final representation cost. The evidence therefore supports conditional construction-language repair **inside a supplied meta-language**, not autonomous invention of representational primitives or a negative-space-specific generator.
 
-**Next discriminator:** attack the construction language itself under explicit search cost, representation cost, noisy/ambiguous attribution, and a matched generic program-synthesis baseline. Preserve the null if generic synthesis constructs the required operator at equal or lower cost.
+**Claim constraint:** attribute the current v0.3-v0.7 gains to representation quality, evidence-conditioned repair, identifiability-boundary detection, and selective allocation of generic synthesis—not to negative-space identity.
+
+**Additional limitation:** the benchmark sequence remains synthetic and deliberately adversarial to fixed surface representations. v0.5-v0.7 do not establish robustness to corrupted resolving labels, open-ended program synthesis, or real-world interface invention.
+
+**Next discriminator:** attack the supplied meta-language/generator itself under explicit compute, representation, and evidence costs, and compare against matched generic program synthesis plus a real frozen language-model abstraction baseline. Preserve the null if those systems recover the same abstractions at equal or lower total cost.
+
+**Status:** open.
+
+---
+
+## NR-005 — v0.7 repair remains inside a supplied meta-language
+
+**Run:** GitHub Actions `31177528904`
+
+**Observed:** both generic synthesis systems constructed:
+
+```text
+direction_forward_probe -> GT(t3,t0)
+direction_reverse_probe -> GT(t0,t3)
+center_heavy_probe      -> GT(ADD(t1,t2),ADD(t0,t3))
+edge_heavy_probe        -> GT(ADD(t0,t3),ADD(t1,t2))
+```
+
+and achieved:
+
+```text
+held_out_repair_selection_rate = 1.0
+multi_family_transfer_rate = 1.0
+Q_invention = 1.0
+representation_cost = 20
+```
+
+The boundary-gated system used `5200` candidate evaluations versus `7800` for always-expand and made no false expansions, while always-expand searched the two already-adequate regions as well.
+
+**What this identifies:** demonstrated construction-language collisions can conditionally license a generic synthesis process that creates useful full predicates not supplied as semantic candidates. Boundary diagnosis can reduce unnecessary synthesis cost without changing the final abstraction quality.
+
+**What this does not identify:** invention of the primitive substrate, invention of the meta-language, invention of the generator `G`, discovery of new raw sensors, or causal truth of the generated predicates. The terminals, constructors, grammar depth, enumeration method, scoring rule, retention rule, and collision detector were all supplied.
+
+**Strong null/localization:**
+
+```text
+invention_quality(boundary_gated) = invention_quality(always_expand)
+```
+
+The empirical advantage was:
+
+```text
+when_to_search / search economy
+```
+
+not:
+
+```text
+what_to_invent / invention quality
+```
+
+**Claim constraint:** describe v0.7 as *conditional construction-language repair inside a supplied generic meta-language*. Do not describe it as unrestricted operator invention, autonomous interface invention, or proof that negative-space search generates better concepts than generic synthesis.
+
+**Next discriminator:** withhold a primitive constructor or otherwise make the supplied meta-language itself insufficient, then test whether the system can diagnose that deeper boundary and acquire a repair without being handed the missing generator component. A separate reproducible run should compare a genuine frozen language-model abstraction baseline rather than simulating one.
 
 **Status:** open.
 
